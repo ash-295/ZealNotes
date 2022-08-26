@@ -1,0 +1,79 @@
+@import url('https://fonts.googleapis.com/css2?family=Square+Peg&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:ital@1&display=swap');
+
+body{
+    margin: 0%;
+    padding: 0%;
+}
+.popup_main_area{
+    min-width: 350px;
+    min-height: 550px;
+    background-color: #cccccc;
+    /* background-image: url(../assets/45-degree-fabric-dark.png); */
+}
+.popup_main_area .popup_header_area{
+    padding: 5%;
+}
+.popup_main_area .popup_header_area .header_brand_name h1{
+    text-align: center;
+}
+.popup_main_area .popup_header_area .header_current_details{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+}
+.popup_main_area .popup_header_area .header_current_details img{
+    width: 25px;
+    margin-right: 10px;
+}
+.popup_main_area .popup_content_area{
+    margin: 0% 5%;
+    padding: 0% 0% 4% 0%;
+    border-radius: 10px;
+    box-shadow: -8px -8px 15px #e7e7e7,
+                10px 10px 10px #afafaf;
+}
+.popup_main_area .popup_content_area .popup_saved_area{
+    padding: 5%;
+    text-align: center;
+}
+.popup_main_area .popup_content_area .popup_saved_area button{
+    border: none;
+    padding: 5%;
+    font-weight: 800;
+    border-radius: 20px;
+}
+.popup_main_area .popup_content_area .popup_saved_area button:hover{
+    color: #ffffff;
+    background-color: #CD201F;
+}
+.popup_main_area .popup_content_area .popup_addnotes_area{
+    text-align: center;
+}
+.popup_main_area .popup_content_area .popup_addnotes_area textarea{
+    margin: 4% 5% 1% 5%;
+    background-color: #cccccc;
+    background-image: url(../assets/45-degree-fabric-dark.png);
+    color: #0c3356;
+    font-family: 'Square Peg', cursive;
+    font-size: 1.8rem;
+    font-weight: 800;
+    resize: none;
+}
+.popup_main_area .popup_content_area .popup_addnotes_area button{
+    border: none;
+    padding: 2% 5%;
+    font-weight: 800;
+    border-radius: 20px;
+}
+.popup_main_area .popup_content_area .popup_addnotes_area button:hover{
+    color: #ffffff;
+    background-color: #CD201F;
+}
+.popup_main_area .info_alerts{
+    color: #CD201F;
+    font-family: 'Roboto Mono', monospace;
+    font-weight: 600;
+    margin: 3% 5%;
+}

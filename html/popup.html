@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible">
+    <link rel="stylesheet" href="../css/popup.css">
+    <script src="../scripts/jQuery.js"></script>
+</head>
+<body>
+    <div class="popup_main_area">
+        <div class="popup_header_area">
+            <div class="header_brand_name">
+                <img id="dashboardLogo" src="../assets/logo.png" alt="brandLogo" width="30px">
+                <h1>ZealNotes</h1>
+            </div>
+            <div class="header_current_details">
+                <img id="active_page_img" src="" alt=""/>
+                <span id="active_page_title"></span>
+            </div>
+        </div>
+        <div class="popup_content_area">
+            <div class="popup_saved_area">
+                <div id="no_saved_notes" style="display: none;">
+                    <h3>Go ahead and add some notes for your Reference</h3>
+                </div>
+                <div id="saved_notes" style="display: none;">
+                    <h3>You have <span id="notes_count"></span> saved for this Domain</h3>
+                    <button id="viewNotes">View Saved Notes</button>
+                </div>
+            </div>
+            <div class="popup_addnotes_area">
+                <textarea name="" id="typed_notes" cols="37" rows="4" placeholder="Start Typing here"></textarea>
+                <button id="addnotes">Add Note</button>
+            </div>
+        </div>
+        <div class="info_alerts" style="display: none;">
+            Note cannot be empty
+        </div>
+    </div>
+</body>
+<script src="../js/popup.js"></script>
+</html>
