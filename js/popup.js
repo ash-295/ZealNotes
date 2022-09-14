@@ -1,3 +1,6 @@
+let currentDomain;
+let currentDomainCount = 0;
+
 function getAllData(){
     return new Promise((resolve, reject) => {
         chrome.tabs.query({}, function(tabs){
@@ -25,7 +28,6 @@ function getAllData(){
 async function setAllData(){
     await getAllData()
     .then((urlResponse) => {
-        console.log("Here", urlResponse);
         if(urlResponse.imgscr !== null && urlResponse.imgscr !== undefined){
             document.getElementById("active_page_img").setAttribute("src", urlResponse.imgscr);
         }
@@ -46,6 +48,8 @@ async function setAllData(){
                     count = res.SavedNotes[key].length;
                 }
             }
+            currentDomain = urlResponse.domain;
+            currentDomainCount = count;
             if(count > 0){
                 $("#no_saved_notes").hide();
                 $("#saved_notes").show();
@@ -81,21 +85,23 @@ function extractDomain(url) {
         return "empty";
     }
 }
-
-chrome.storage.local.get("SavedNotes")
-.then((res) => {
-    console.log("Check", res);
-})
-.catch((err) => {
-    console.log(err);
+chrome.tabs.query({}, function(tabs){
+    console.log(tabs);
 });
+
+// chrome.storage.local.get("SavedNotes")
+// .then((res) => {
+//     console.log("Check", res);
+// })
+// .catch((err) => {
+//     console.log(err);
+// });
 
 $(document).ready( () => {
     $("#addnotes").click( () => {
         let notes = $("#typed_notes").val();
         if(typeof notes === "string" && notes.length > 0){
             chrome.tabs.query({}, function(tabs){
-                // console.log("Test01", tabs);
                 let currentTime = new Date().getTime();
                 let imgscr, title, url, domain;
                 for(let i =0; i<tabs.length; i++){
@@ -175,5 +181,14 @@ $(document).ready( () => {
             url: chrome.runtime.getURL("/html/dashboard.html"),
         });
     });
-    
+    $("#viewNotes").click( () => {
+        let terms = currentDomain.split(".");
+        let domaintoId = "";
+        for(let t in terms){
+            domaintoId =  domaintoId.concat(terms[t]);
+        }
+        chrome.tabs.create({
+            url: chrome.runtime.getURL(`/html/dashboard.html?domain=${domaintoId}`),
+        });
+    });
 });

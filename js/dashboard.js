@@ -1,3 +1,15 @@
+let queryParam = new URLSearchParams(window.location.search).get("domain");
+
+function extractDomain(url) {
+    var re = /:\/\/(www\.)?(.+?)\//;
+    try {
+        return url.match(re)[2];
+    } 
+    catch (errN1) {
+        console.log("errN1: ", errN1);
+        return "empty";
+    }
+}
 
 function getNotes(){
     return new Promise( (resolve, reject) => {
@@ -18,8 +30,13 @@ async function createNotes(){
         console.log(response1.allNotes);
         let i = 1;
         for(let key in response1.allNotes){
+            let terms = key.split(".");
+            let domaintoId = "";
+            for(let t in terms){
+                domaintoId =  domaintoId.concat(terms[t]);
+            }
             $("#accordion").append(`
-                <div id="domain_${i}" class="accordion_item">
+                <div id="domain_${domaintoId}" class="accordion_item">
                     <div class="accordion_head">
                         <h2>${key}</h2>
                         <span>Saved Notes: ${response1.allNotes[key].length}</span>
@@ -46,7 +63,13 @@ async function createNotes(){
     });
 }
 createNotes();
+
 $(document).ready( ()=> {
+    if(queryParam !== undefined && queryParam !== null){
+        document.getElementById(`domain_${queryParam}`).scrollIntoView({
+            behavior: 'smooth'
+        });
+    }
     $("#tab1").click(function(){
         $("#tab2").addClass("inactive");
         $("#tab1").removeClass("inactive");
@@ -58,5 +81,15 @@ $(document).ready( ()=> {
         $("#tab2").removeClass("inactive");
         $("#tabcontent1").hide();
         $("#tabcontent2").show();
+    });
+
+    $("#addNotesNow").click(function(){
+        let added_title = $("#onenote_title").val();
+        let added_url = $("#onenote_url").val();
+        let added_note = $("#onenote_note").val();
+        // console.log("Check 1", added_title);
+        // console.log("Check 2", added_url);
+        // console.log("Check 3", added_note);
+        let domain = extractDomain(added_url);
     });
 });

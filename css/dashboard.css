@@ -47,7 +47,6 @@ body{
     font-size: 2rem;
 }
 .content_area{
-    /* background: url(../assets/dark-background-abstract-background-network-3d-background-7680x4320-8324.png); */
     padding: 2% 5%;
     border-bottom: 2px solid #5e5e5e;
     border-left: 2px solid #5e5e5e;
@@ -110,4 +109,45 @@ body{
     font-size: 1.8rem;
     font-weight: 800;
     border-radius: 10px;
+}
+.onenote{
+    color: #000000;
+}
+.onenote input{
+    width: 100%;
+    font-size: 1.2rem;
+    padding: 1%;
+    border-radius: 10px;
+    background-color: #000000;
+    border: 2px solid #963ad4;
+    margin-bottom: 1%;
+}
+.onenote textarea{
+    width: 100%;
+    display: block;
+    background-color: #000000;
+    border-radius: 10px;
+    border: 2px solid #963ad4;
+    font-size: 1rem;
+    padding: 1%;
+    margin-bottom: 1%;
+}
+.onenote button{
+    background-color: #2e0a46;
+    padding: 1%;
+    border-radius: 10px;
+    font-size: 1.4rem;
+    color: #dcdcdc;
+    width: 100%;
+}
+
+.onenote button:hover {
+    background-color: #963ad4;
+    color: #ffffff;
+}
+
+.onenote span{
+    color: #fb6150;
+    font-size: 0.8rem;
+    font-style: italic;
 }
