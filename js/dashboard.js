@@ -27,7 +27,8 @@ function getNotes(){
 async function createNotes(){
     await getNotes()
     .then((response1) => {
-        console.log(response1.allNotes);
+        // console.log(response1.allNotes);
+        document.getElementById("accordion").innerHTML = "";
         let i = 1;
         for(let key in response1.allNotes){
             let terms = key.split(".");
@@ -57,6 +58,12 @@ async function createNotes(){
             }
             i++;
         }
+        if(i === 1){
+            $("#noNotes").show();
+        }
+        else{
+            $("#noNotes").hide();
+        }
     })
     .catch((error1) => {
         console.log(error1);
@@ -75,6 +82,7 @@ $(document).ready( ()=> {
         $("#tab1").removeClass("inactive");
         $("#tabcontent2").hide();
         $("#tabcontent1").show();
+        createNotes();
     });
     $("#tab2").click(function(){
         $("#tab1").addClass("inactive");
@@ -87,9 +95,79 @@ $(document).ready( ()=> {
         let added_title = $("#onenote_title").val();
         let added_url = $("#onenote_url").val();
         let added_note = $("#onenote_note").val();
-        // console.log("Check 1", added_title);
-        // console.log("Check 2", added_url);
-        // console.log("Check 3", added_note);
         let domain = extractDomain(added_url);
+        let currentTime = new Date().getTime();
+        if(added_title === undefined || added_title === null || typeof added_title !== "string" || added_title.length === 0){
+            document.getElementById("invalid_alerts").innerHTML = `* Please add a Title`;
+        }
+        else if(added_title.trim().length < 5){
+            document.getElementById("invalid_alerts").innerHTML = `* Title should be of minimum 5 characters`;
+        }
+        else if(added_url === undefined || added_url === null || typeof added_url !== "string" || added_url.length === 0){
+            document.getElementById("invalid_alerts").innerHTML = `* Please add a URL`;
+        }
+        else if(domain === undefined || domain === null || domain === "empty"){
+            document.getElementById("invalid_alerts").innerHTML = `* Please add a complete URL`;
+        }
+        else if(added_note === undefined || added_note === null || added_note.length === 0 || added_title.trim().length === 0){
+            document.getElementById("invalid_alerts").innerHTML = `* Please add a Note to be saved`;
+        }
+        else{
+            chrome.storage.local.get("SavedNotes")
+            .then( (savedNotes) => {
+                if(savedNotes !== undefined && savedNotes.SavedNotes !== undefined){
+                    if(savedNotes.SavedNotes[domain] !== undefined){
+                        savedNotes.SavedNotes[domain].push({
+                            time : currentTime,
+                            imgscr : "",
+                            title : added_title,
+                            domain : domain,
+                            url : added_url,
+                            note : added_note
+                        });
+                        chrome.storage.local.set({
+                            SavedNotes : savedNotes.SavedNotes
+                        });
+                    }
+                    else{
+                        savedNotes.SavedNotes[domain] = [];
+                        savedNotes.SavedNotes[domain].push({
+                            time : currentTime,
+                            imgscr : "",
+                            title : added_title,
+                            domain : domain,
+                            url : added_url,
+                            note : added_note
+                        });
+                        chrome.storage.local.set({
+                            SavedNotes : savedNotes.SavedNotes
+                        });
+                    }
+                }
+                else{
+                    let tmpObj = {};
+                    tmpObj[domain] = [];
+                    tmpObj[domain].push({
+                        time : currentTime,
+                        imgscr : "",
+                        title : added_title,
+                        domain : domain,
+                        url : added_url,
+                        note : added_note
+                    });
+
+                    chrome.storage.local.set({
+                        SavedNotes : tmpObj
+                    });
+                }
+                document.getElementById("invalid_alerts").innerHTML = `Note has been successfully Saved`;
+                $("#onenote_title").val("");
+                $("#onenote_url").val("");
+                $("#onenote_note").val("");
+            })
+            .catch( (errorNotes) => {
+                console.log("ERROR");
+            });
+        }
     });
 });

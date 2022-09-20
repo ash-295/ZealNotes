@@ -151,3 +151,14 @@ body{
     font-size: 0.8rem;
     font-style: italic;
 }
+
+#noNotes{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 15% 0%;
+}
+#noNotes h2{
+    color: #5e5e5e;
+    font-size: 2rem;
+}

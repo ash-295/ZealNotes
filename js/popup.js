@@ -97,6 +97,10 @@ chrome.tabs.query({}, function(tabs){
 //     console.log(err);
 // });
 
+// chrome.storage.local.set({
+//     SavedNotes : {}
+// });
+
 $(document).ready( () => {
     $("#addnotes").click( () => {
         let notes = $("#typed_notes").val();
