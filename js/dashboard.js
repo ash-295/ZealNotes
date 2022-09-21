@@ -41,14 +41,13 @@ async function createNotes(){
                     <div class="accordion_head">
                         <h2>${key}</h2>
                         <span>Saved Notes: ${response1.allNotes[key].length}</span>
-                        <i class="fa-solid fa-circle-arrow-down"></i>
                     </div>
-                    <div id="notes_list_${i}" class="accordion_content">
+                    <div id="notes_list_${domaintoId}" class="accordion_content" style="display:none">
                     </div>
                 </div>
             `);
             for(let k in response1.allNotes[key]){
-                $(`#notes_list_${i}`).append(`
+                $(`#notes_list_${domaintoId}`).append(`
                     <div id="note_${key + '_' + k}" class="notes">
                         <img src="${response1.allNotes[key][k].imgsrc}" alt="">
                         <h3><a target="_blank" href="${response1.allNotes[key][k].url}">${response1.allNotes[key][k].title}</a></h3>
@@ -170,4 +169,18 @@ $(document).ready( ()=> {
             });
         }
     });
+
+    $(document).on("click", ".accordion_head", function (e){
+        let _id = $(this).parent().attr("id");
+        let op_id = _id.split("_")[1];
+        let contentList = document.getElementsByClassName("accordion_content");
+        for(let i = 0; i< contentList.length; i++){
+          if(contentList[i].id === `notes_list_${op_id}`){
+            $(`#${contentList[i].id}`).slideToggle();
+          }
+          else{
+            $(`#${contentList[i].id}`).slideUp();
+          }
+        }
+      });
 });

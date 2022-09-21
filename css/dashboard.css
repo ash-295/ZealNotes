@@ -64,6 +64,9 @@ body{
 #accordion .accordion_item .accordion_head{
     padding: 1% 5%;
 }
+#accordion .accordion_item .accordion_head:hover h2, #accordion .accordion_item .accordion_head:hover span{
+    color: #963ad4;
+}
 #accordion .accordion_item .accordion_head h2{
     display: inline;
     font-size: 2rem;
@@ -71,6 +74,9 @@ body{
 }
 #accordion .accordion_item .accordion_head span{
     font-size: 1.5rem;
+}
+#accordion .accordion_item .accordion_head .close-notes{
+    display: inline;
 }
 #accordion .accordion_item .accordion_head i{
     font-size: 2rem;
